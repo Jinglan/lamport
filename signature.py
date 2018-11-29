@@ -49,14 +49,22 @@ def signMessage(secretKey, message):
     return sigList
 
 
-# I didnt check this yet I just wanna be done with the chapter
+# Validate the authenticity of the signatures
 def validate(publicKey, signatures, message):
+    # Pull two separate lists out of the publicKey parameter
     pk0, pk1 = publicKey
+    # Iterate through each signature in the list of signatures
     for i, sig in enumerate(signatures):
+        # If the bit at that index of the message is 0
         if message[i] == '0':
+            # Check if the signature matches the public key
+            # at that index from the list pk0
             if pk0[i] != hash(sig):
                 return "This is invalid"
+        # If the bit at that index of the message is 1
         elif message[i] == '1':
+            # Check if the signature matche the public key
+            # at that index from the list pk1
             if pk1[i] != hash(sig):
                 return "This is invalid"
     return "This is valid"
